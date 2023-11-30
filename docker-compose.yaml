@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  postgres:
+    container_name: postgres_summary_app
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: notacopyofheadway
+      POSTGRES_DB: company
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./sql:/docker-entrypoint-initdb.d/
+
+  mongodb:
+    container_name: mongodb_summary_app
+    image: mongo
+    volumes:
+      - mongodb-data:/data/db
+      - ./mongo:/docker-entrypoint-initdb.d/
+    ports:
+      - "27017:27017"
+
+volumes:
+  postgres-data:
+  mongodb-data:
