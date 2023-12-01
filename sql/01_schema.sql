@@ -1,5 +1,4 @@
 
--- Create Employees table
 CREATE TABLE employees (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
@@ -15,7 +14,6 @@ CREATE TABLE employees (
 alter table employees
     owner to postgres;
 
--- Create EmployeeSkills table
 CREATE TABLE employee_skills (
     employee_id INT REFERENCES employees(id),
     skill VARCHAR(100),
@@ -25,7 +23,6 @@ CREATE TABLE employee_skills (
 alter table employee_skills
     owner to postgres;
 
--- Create Projects table
 CREATE TABLE projects (
     project_id SERIAL PRIMARY KEY,
     name VARCHAR(255),
@@ -37,7 +34,6 @@ CREATE TABLE projects (
 alter table projects
     owner to postgres;
 
--- Create EmployeeProjects table
 CREATE TABLE employee_projects (
     employee_id INT REFERENCES employees(id),
     project_id INT REFERENCES projects(project_id),

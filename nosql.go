@@ -34,7 +34,7 @@ func registerMongoHandlers(router *http.ServeMux, client *mongo.Client) {
 
 func addSkillsForEmploeesMongoHandler(w http.ResponseWriter, r *http.Request, db *mongo.Database) {
 	if r.Method != http.MethodPost {
-		http.Error(w, "Only POST method is allowed", http.StatusMethodNotAllowed)
+		http.Error(w, "Only POST method", http.StatusMethodNotAllowed)
 		return
 	}
 
@@ -62,7 +62,7 @@ func addSkillsForEmploeesMongoHandler(w http.ResponseWriter, r *http.Request, db
 
 func updateAllEmploeesPositionMongoHandler(w http.ResponseWriter, r *http.Request, db *mongo.Database) {
 	if r.Method != http.MethodPost {
-		http.Error(w, "Only POST method is allowed", http.StatusMethodNotAllowed)
+		http.Error(w, "Only POST method", http.StatusMethodNotAllowed)
 		return
 	}
 
@@ -78,12 +78,9 @@ func updateAllEmploeesPositionMongoHandler(w http.ResponseWriter, r *http.Reques
 	
 	result, err := emploeeCollection.UpdateMany(context.Background(), bson.M{}, updatePipeline)
 	if err != nil {
-		http.Error(w, "Error updating user passwords", http.StatusInternalServerError)
-		log.Printf("Error updating user passwords: %v\n", err)
+		http.Error(w, "Error updating", http.StatusInternalServerError)
 		return
 	}
-
-	log.Printf("Password hashes updated, number of users affected: %v\n", result.ModifiedCount)
 
 	duration := time.Since(start).Seconds()
 
@@ -92,7 +89,7 @@ func updateAllEmploeesPositionMongoHandler(w http.ResponseWriter, r *http.Reques
 
 func insertTestEmploeesMongoHandler(w http.ResponseWriter, r *http.Request, db *mongo.Database) {
 	if r.Method != http.MethodPost {
-		http.Error(w, "Only POST method is allowed", http.StatusMethodNotAllowed)
+		http.Error(w, "Only POST method", http.StatusMethodNotAllowed)
 		return
 	}
 
@@ -137,8 +134,7 @@ func insertTestEmploeesMongoHandler(w http.ResponseWriter, r *http.Request, db *
 	var err error
 	_, err = emploeeCollection.InsertMany(ctx, userDocuments)
 	if err != nil {
-		log.Printf("Error inserting users: %v\n", err)
-		http.Error(w, "Error inserting users", http.StatusInternalServerError)
+		log.Printf("Error inserting: %v\n", err)
 		return
 	}
 
@@ -149,7 +145,7 @@ func insertTestEmploeesMongoHandler(w http.ResponseWriter, r *http.Request, db *
 
 func deleteAllEmploeesDataMongoHandler(w http.ResponseWriter, r *http.Request, db *mongo.Database) {
 	if r.Method != http.MethodPost {
-		http.Error(w, "Only POST method is allowed", http.StatusMethodNotAllowed)
+		http.Error(w, "Only POST method", http.StatusMethodNotAllowed)
 		return
 	}
 
@@ -158,12 +154,10 @@ func deleteAllEmploeesDataMongoHandler(w http.ResponseWriter, r *http.Request, d
 	emploeeCollection := db.Collection("emploees")
 
 	if _, err := emploeeCollection.DeleteMany(context.Background(), bson.D{}); err != nil {
-		http.Error(w, "Error deleting users", http.StatusInternalServerError)
-		log.Printf("Error deleting users: %v\n", err)
+		http.Error(w, "Error deleting", http.StatusInternalServerError)
 		return
 	}
 
-	log.Println("All user data deleted successfully")
 	duration := time.Since(start).Seconds()
 
 	sendResponse(w, "MongoDB", duration)

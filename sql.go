@@ -34,7 +34,7 @@ func registerPostgresHandlers(router *http.ServeMux, pool *pgxpool.Pool) {
 
 func addSkillsForEmploeesPostgresHandler(w http.ResponseWriter, r *http.Request, pool *pgxpool.Pool) {
 	if r.Method != http.MethodPost {
-		http.Error(w, "Only POST method is allowed", http.StatusMethodNotAllowed)
+		http.Error(w, "Only POST method", http.StatusMethodNotAllowed)
 		return
 	}
 	start := time.Now()
@@ -70,7 +70,7 @@ func addSkillsForEmploeesPostgresHandler(w http.ResponseWriter, r *http.Request,
 
 func updateAllEmploeesPositionPostgresHandler(w http.ResponseWriter, r *http.Request, pool *pgxpool.Pool) {
 	if r.Method != http.MethodPost {
-		http.Error(w, "Only POST method is allowed", http.StatusMethodNotAllowed)
+		http.Error(w, "Only POST method", http.StatusMethodNotAllowed)
 		return
 	}
 	start := time.Now()
@@ -81,8 +81,7 @@ func updateAllEmploeesPositionPostgresHandler(w http.ResponseWriter, r *http.Req
 	)
 
 	if err != nil {
-		http.Error(w, "Error updating user passwords", http.StatusInternalServerError)
-		log.Printf("Error updating user passwords: %v\n", err)
+		http.Error(w, "Error updating", http.StatusInternalServerError)
 		return
 	}
 
@@ -92,7 +91,7 @@ func updateAllEmploeesPositionPostgresHandler(w http.ResponseWriter, r *http.Req
 
 func deleteAllEmploeeysDataPostgresHandler(w http.ResponseWriter, r *http.Request, pool *pgxpool.Pool) {
 	if r.Method != http.MethodPost {
-		http.Error(w, "Only POST method is allowed", http.StatusMethodNotAllowed)
+		http.Error(w, "Only POST method", http.StatusMethodNotAllowed)
 		return
 	}
 	start := time.Now()
@@ -116,7 +115,6 @@ func deleteAllEmploeeysDataPostgresHandler(w http.ResponseWriter, r *http.Reques
 		return
 	}
 
-	log.Println("All user data deleted successfully")
 	duration := time.Since(start).Seconds()
 	sendResponse(w, "PostgreSQL", duration)
 }

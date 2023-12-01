@@ -1,0 +1,13 @@
+
+
+Launch all stuff
+```
+docker compose up
+go run main.go nosql.go sql.go
+```
+
+Example of test request
+```
+curl -X POST -d '{ "count": 30000 }' http://127.0.0.1:3777/test/mongo/emploees/insert
+
+```

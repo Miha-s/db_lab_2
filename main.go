@@ -35,8 +35,8 @@ func main() {
 	registerPostgresHandlers(router, pool)
 	registerMongoHandlers(router, mongoClient)
 
-	log.Print("Starting server on :4000")
-	log.Fatal(http.ListenAndServe("127.0.0.1:4000", router))
+	log.Print("Starting server on port 3777")
+	log.Fatal(http.ListenAndServe("127.0.0.1:3777", router))
 }
 
 func sendResponse(w http.ResponseWriter, database string, duration float64) {
